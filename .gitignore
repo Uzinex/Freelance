@@ -416,3 +416,26 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.db
+
+# Django
+db.sqlite3
+/staticfiles/
+/media/
+
+# Virtual env
+.venv/
+
+# Node
+node_modules/
+/dist/
+/build/
+
+# Environment
+.env
