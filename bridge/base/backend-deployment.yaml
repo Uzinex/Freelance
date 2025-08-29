@@ -1,0 +1,41 @@
+#! backend-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend
+    namespace: freelance
+    labels:
+        com.docker.compose.project: freelance
+        com.docker.compose.service: backend
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: freelance
+            com.docker.compose.service: backend
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: freelance
+                com.docker.compose.service: backend
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: backend
+                  image: freelance-backend
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: CORS_ALLOWED_ORIGINS
+                      value: "http://localhost:5173"
+                    - name: DATABASE_URL
+                      value: "postgresql://postgres:pQYxActhpTPvgGxNkLHtRpxgcmRaPuNZ@centerbeam.proxy.rlwy.net:33839/railway"
+                    - name: DEBUG
+                      value: "True"
+                    - name: SECRET_KEY
+                      value: "change-me"
+                  ports:
+                    - name: backend-8000
+                      containerPort: 8000
