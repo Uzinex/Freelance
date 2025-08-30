@@ -1,17 +1,20 @@
 FROM python:3.11-slim
 
-# Устанавливаем зависимости
+# Рабочая директория
 WORKDIR /app
+
+# Устанавливаем зависимости
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем код
+# Копируем проект
 COPY backend/ .
 
-# Окружение
+# Настройки
 ENV PYTHONUNBUFFERED=1
 
-# Собираем статику (если будет использоваться)
+# Собираем статику (если используешь collectstatic)
 RUN python manage.py collectstatic --noinput || true
 
+# Запуск
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

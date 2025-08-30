@@ -2,13 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Устанавливаем зависимости
+# Установка зависимостей
 COPY frontend/package*.json ./
 RUN npm install
 
 # Копируем весь код
 COPY frontend/ .
 
-# Dev-режим
+# Открываем порт
 EXPOSE 5173
+
+# Запуск Vite
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
