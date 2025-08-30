@@ -1,11 +1,9 @@
-#! frontend-service.yaml
+#! redis-service.yaml
 # Generated code, do not edit
 apiVersion: v1
 kind: Service
 metadata:
-    name: frontend-published
+    name: redis-published
     namespace: freelance
 spec:
     type: LoadBalancer
-
-# check if there is at least one published port

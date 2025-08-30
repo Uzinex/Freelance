@@ -1,7 +1,14 @@
 FROM node:20-alpine
+
 WORKDIR /app
+
+# Устанавливаем зависимости
 COPY frontend/package*.json ./
-RUN npm i
+RUN npm install
+
+# Копируем весь код
 COPY frontend/ .
+
+# Dev-режим
 EXPOSE 5173
-CMD ["npm","run","dev","--","--host"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

@@ -27,6 +27,16 @@ spec:
                 - name: frontend
                   image: freelance-frontend
                   imagePullPolicy: IfNotPresent
+                  env:
+                    - name: VITE_API_URL
+                      value: "http://localhost:8000"
                   ports:
                     - name: frontend-5173
                       containerPort: 5173
+                  volumeMounts:
+                    - name: app
+                      mountPath: /app
+            volumes:
+                - name: app
+                  hostPath:
+                    path: C:\Users\Dell\Рабочий стол\Freelance\frontend

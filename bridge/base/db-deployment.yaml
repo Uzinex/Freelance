@@ -23,6 +23,7 @@ spec:
                 com.docker.compose.service: db
                 com.docker.compose.network.default: "true"
         spec:
+            restartPolicy: Always
             containers:
                 - name: db
                   image: postgres:16
@@ -31,9 +32,16 @@ spec:
                     - name: POSTGRES_DB
                       value: "uzinex"
                     - name: POSTGRES_PASSWORD
-                      value: "uzinex"
+                      value: "postgres"
                     - name: POSTGRES_USER
-                      value: "uzinex"
+                      value: "postgres"
                   ports:
                     - name: db-5432
                       containerPort: 5432
+                  volumeMounts:
+                    - name: var-lib-postgresql-data
+                      mountPath: /var/lib/postgresql/data
+            volumes:
+                - name: var-lib-postgresql-data
+                  persistentVolumeClaim:
+                    claimName: db-postgres-data

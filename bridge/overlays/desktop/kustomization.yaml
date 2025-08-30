@@ -5,6 +5,10 @@ kind: Kustomization
 resources:
     - ../../base
 patches:
+    - path: backend-C:\Users\Dell\Рабочий стол\Freelance\backend-persistentVolumeClaim.yaml
     - path: backend-service.yaml
+    - path: db-postgres_data-persistentVolumeClaim.yaml
     - path: db-service.yaml
+    - path: frontend-C:\Users\Dell\Рабочий стол\Freelance\frontend-persistentVolumeClaim.yaml
     - path: frontend-service.yaml
+    - path: redis-service.yaml

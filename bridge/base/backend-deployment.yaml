@@ -27,15 +27,29 @@ spec:
                 - name: backend
                   image: freelance-backend
                   imagePullPolicy: IfNotPresent
+                  command: ['sh -c python manage.py migrate && python manage.py runserver 0.0.0.0:8000']
                   env:
+                    - name: ALLOWED_HOSTS
+                      value: "localhost,127.0.0.1"
                     - name: CORS_ALLOWED_ORIGINS
                       value: "http://localhost:5173"
+                    - name: CSRF_TRUSTED_ORIGINS
+                      value: "http://localhost:5173"
                     - name: DATABASE_URL
-                      value: "postgresql://postgres:pQYxActhpTPvgGxNkLHtRpxgcmRaPuNZ@centerbeam.proxy.rlwy.net:33839/railway"
+                      value: "postgresql://postgres:postgres@db:5432/uzinex"
                     - name: DEBUG
                       value: "True"
+                    - name: REDIS_URL
+                      value: "redis://redis:6379/0"
                     - name: SECRET_KEY
                       value: "change-me"
                   ports:
                     - name: backend-8000
                       containerPort: 8000
+                  volumeMounts:
+                    - name: app
+                      mountPath: /app
+            volumes:
+                - name: app
+                  hostPath:
+                    path: C:\Users\Dell\Рабочий стол\Freelance\backend

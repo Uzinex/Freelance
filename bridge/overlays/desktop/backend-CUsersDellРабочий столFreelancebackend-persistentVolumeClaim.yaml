@@ -1,0 +1,9 @@
+#! backend-C:\Users\Dell\Рабочий стол\Freelance\backend-persistentVolumeClaim.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: backend-c--users-dell--------------freelance-backend
+    namespace: freelance
+spec:
+    storageClassName: "hostpath" # see docker/desktop-storage-provisioner
