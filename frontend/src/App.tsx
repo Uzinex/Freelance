@@ -17,4 +17,6 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   )
+export default function App() {
+  return null;
 }
