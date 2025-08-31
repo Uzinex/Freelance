@@ -20,7 +20,7 @@ export default function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: form.username,
+          identifier: form.username,
           password: form.password,
         }),
       });
@@ -51,7 +51,7 @@ export default function Login() {
           <input
             type="text"
             name="username"
-            placeholder="Имя пользователя или Email"
+            placeholder="Имя пользователя или email"
             value={form.username}
             onChange={handleChange}
             className="w-full border rounded-lg px-4 py-2"

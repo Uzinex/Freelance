@@ -1,10 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import get_user_model
-from .models import PasswordResetCode
-from .models import CustomUser
+from .models import PasswordResetCode, CustomUser
 import random
 from notifications.messaging import send_reset_code_email, send_reset_code_sms
 
@@ -76,8 +73,6 @@ class PasswordResetRequestSerializer(serializers.Serializer):
     def validate(self, data):
         identifier = data["identifier"]
         user = None
-        from django.contrib.auth import get_user_model
-        User = get_user_model()
 
         try:
             user = User.objects.get(email=identifier)
@@ -92,12 +87,10 @@ class PasswordResetRequestSerializer(serializers.Serializer):
         return data
 
     def create(self, validated_data):
-        import random
         user = validated_data["user"]
         method = validated_data["method"]
 
         code = str(random.randint(100000, 999999))
-        from .models import PasswordResetCode
         PasswordResetCode.objects.create(user=user, code=code)
 
         if method == "email":
