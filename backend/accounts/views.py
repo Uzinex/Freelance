@@ -1,4 +1,6 @@
 from rest_framework import generics, permissions
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
 from .serializers import RegisterSerializer
 from .serializers import LoginSerializer
 from .serializers import PasswordResetRequestSerializer, PasswordResetConfirmSerializer
@@ -6,6 +8,7 @@ from .serializers import PasswordResetRequestSerializer, PasswordResetConfirmSer
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
+    queryset = get_user_model().objects.all()
 
 class CustomLoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
