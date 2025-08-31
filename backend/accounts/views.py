@@ -1,3 +1,4 @@
+codex/create-logout-handler-and-backend-route
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -8,6 +9,11 @@ from .serializers import (
     PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer,
 )
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+from .serializers import RegisterSerializer
+from .serializers import LoginSerializer
+from .serializers import PasswordResetRequestSerializer, PasswordResetConfirmSerializer
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
