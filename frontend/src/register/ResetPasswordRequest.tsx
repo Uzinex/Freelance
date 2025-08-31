@@ -18,8 +18,12 @@ export default function ResetPasswordRequest() {
       if (!res.ok) throw new Error(data.detail || "Ошибка");
 
       setMessage("Код отправлен! Проверьте Email или SMS.");
-    } catch (err: any) {
-      setMessage(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(err.message);
+      } else {
+        setMessage(String(err));
+      }
     }
   };
 

@@ -20,8 +20,12 @@ export default function ResetPasswordConfirm() {
       if (!res.ok) throw new Error(data.detail || "Ошибка");
 
       setMessage("Пароль успешно изменён! Теперь можно войти.");
-    } catch (err: any) {
-      setMessage(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(err.message);
+      } else {
+        setMessage(String(err));
+      }
     }
   };
 
