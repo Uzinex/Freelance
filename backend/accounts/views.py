@@ -1,7 +1,13 @@
-from rest_framework import generics, permissions
-from .serializers import RegisterSerializer
-from .serializers import LoginSerializer
-from .serializers import PasswordResetRequestSerializer, PasswordResetConfirmSerializer
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .serializers import (
+    RegisterSerializer,
+    LoginSerializer,
+    PasswordResetRequestSerializer,
+    PasswordResetConfirmSerializer,
+)
 
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
@@ -15,6 +21,27 @@ class CustomLoginView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data)
+
+
+class LogoutView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        refresh_token = request.data.get("refresh")
+        if refresh_token is None:
+            return Response(
+                {"detail": "Refresh token is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except Exception:
+            return Response(
+                {"detail": "Invalid refresh token."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 class PasswordResetRequestView(generics.CreateAPIView):
     serializer_class = PasswordResetRequestSerializer
